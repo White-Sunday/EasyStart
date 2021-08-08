@@ -16,7 +16,14 @@
       </div>
       <br>
       <div>
-        <el-button type="success" round @click="login">登录</el-button>
+        <el-row>
+          <el-col :span="12">
+            <el-button type="success" round @click="login">登录</el-button>
+          </el-col>
+          <el-col :span="12">
+            <el-button type="success" round @click="regis">注册</el-button>
+          </el-col>
+        </el-row>
       </div>
     </el-col>
 
@@ -36,15 +43,32 @@ export default {
     login(){
       this.$axios({
         method: 'post',
-        url: '/App/testlogin/',
+        url: '/api/App/testlogin/',
+        data:{
+          input_username: this.input_user,
+          input_password: this.input_pass,
+        }
+      }).then(function (ret){
+        const login_ret = ret.data.login_ret;
+        alert(login_ret)
+      }).catch(function (error){
+        console.log(error)
+      });
+    },
+    regis(){
+      this.$axios({
+        method: 'post',
+        url: '/api/App/testregister/',
         data:{
           input_username: this.input_user,
           input_password: this.input_pass,
         }
       }).then(function(ret){
-        const login_ret = ret.data.login_ret;
-        alert(login_ret)
-      });
+        const regis_ret = ret.data.regis_ret;
+        alert(regis_ret);
+      }).catch(function (error){
+        console.log(error);
+      })
     }
   }
 }
